@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+}
+
+group 'com.infoniqa'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    hibernateOldVersion = '5.6.15.Final'
+    hibernateNewVersion = '6.2.4.Final'
+    junitJupiterApiVersion='5.9.2'
+}
+
+dependencies {
+
+    //      JPA
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+
+    //      Hibernate
+    //implementation "org.hibernate:hibernate-core-jakarta:${hibernateOldVersion}"
+    implementation "org.hibernate.orm:hibernate-core:${hibernateNewVersion}"
+
+    //      generation of metamodel-classes for ORM mapping
+    annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:${hibernateNewVersion}")
+
+    //      DB
+    implementation 'com.h2database:h2:2.1.214'
+
+    //      test
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitJupiterApiVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitJupiterApiVersion}"
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+}
+
+test {
+    useJUnitPlatform()
+}
